@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neonify - Animal Vibes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+      background-size: 600% 600%;
+      animation: backgroundGradient 15s ease infinite;
+      color: #fff;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 30px;
+      cursor: pointer;
+    }
+    @keyframes backgroundGradient {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+    .subtitle {
+      font-weight: 300;
+      font-size: 1.25rem;
+      color: #9eff9e;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .player {
+      background: rgba(0,0,0,0.6);
+      border: 2px solid #39ff14;
+      border-radius: 20px;
+      width: 350px;
+      padding: 20px;
+      box-shadow: 0 0 20px #39ff14, inset 0 0 30px #39ff14;
+    }
+    .song-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .album-art {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #39ff14;
+      object-fit: cover;
+    }
+    .details {
+      flex-grow: 1;
+    }
+    .title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #39ff14;
+      margin-bottom: 5px;
+    }
+    .artist {
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: #9eff9e;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+    button {
+      background: transparent;
+      border: 2px solid #39ff14;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      color: #39ff14;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px #39ff14;
+    }
+    button:hover {
+      background: #39ff14;
+      color: #000;
+      box-shadow: 0 0 25px #39ff14, 0 0 40px #39ff14, 0 0 60px #39ff14;
+      transform: scale(1.1);
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #6cff6c;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">Neonify</div>
+  <div class="subtitle">Animal Vibes with SoundHelix Beats</div>
+
+  <div class="player">
+    <div class="song-info">
+      <img src="" alt="Album Art" class="album-art" />
+      <div class="details">
+        <div class="title" id="songTitle">Loading...</div>
+        <div class="artist" id="songArtist">...</div>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="prevBtn" title="Previous">&#9664;</button>
+      <button id="playBtn" title="Play/Pause">&#9654;</button>
+      <button id="nextBtn" title="Next">&#9654;&#9654;</button>
+    </div>
+    <audio id="audioPlayer"></audio>
+  </div>
+
+  <div class="footer">© 2025 Neonify Animal Beats</div>
+
+  <script>
+    const songs = [
+      {
+        title: "Lion's Roar",
+        artist: "SoundHelix",
+        img: "https://wallpapers.com/images/hd/flower-neon-purple-iphone-lpfj4a3kqgbc9a71.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        title: "Tiger Pulse",
+        artist: "SoundHelix",
+        img: "https://i.pinimg.com/474x/97/9b/02/979b02171a9f559dd46bba8469d0997d.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        title: "Elephant March",
+        artist: "SoundHelix",
+        img: "https://png.pngtree.com/background/20240823/original/pngtree-cool-neon-star-4k-uhd-glowing-abstract-background-in-blue-and-picture-image_10204829.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      },
+      {
+        title: "Wolf Echo",
+        artist: "SoundHelix",
+        img: "https://thumbs.dreamstime.com/b/neon-background-wallpaper-futuristic-glowing-lights-cool-backgrounds-blue-background-white-wallpaper-green-neon-background-276345784.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+      },
+      {
+        title: "Fox Trick",
+        artist: "SoundHelix",
+        img: "https://cdn.shopify.com/s/files/1/0600/6318/7116/files/purple-neon-sign-aesthetic-change-3_480x480.png?v=1667964744",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+      },
+      {
+        title: "Panda Chill",
+        artist: "SoundHelix",
+        img: "https://t4.ftcdn.net/jpg/05/89/15/35/360_F_589153575_HHl7ilalywWNB6RDbjrF0jJB2AHxz2UP.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+      },
+      {
+        title: "Deer Lights",
+        artist: "SoundHelix",
+        img: "https://t4.ftcdn.net/jpg/05/99/63/73/360_F_599637357_7qmpSlQkVfeWChMFCKTuLiADOhgaycep.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+      },
+      {
+        title: "Horse Dreams",
+        artist: "SoundHelix",
+        img: "https://img.pikbest.com/wp/202405/circle-neon-light-3d-rendering-of-a-futuristic-studio-stage-with-lights_9856302.jpg!w700wp",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+      },
+      {
+        title: "Giraffe Glide",
+        artist: "SoundHelix",
+        img: "https://thumbs.dreamstime.com/b/stage-lit-neon-lights-screen-entertainment-visual-effects-events-create-visually-captivating-setting-322359164.jpg",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+      },
+      {
+        title: "Monkey Moves",
+        artist: "SoundHelix",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiiOao1A-XqNTuospMrH3SfNq6_ryYyEdSXw&s",
+        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
+      }
+    ];
+
+    let currentIndex = 0;
+    const songTitle = document.getElementById("songTitle");
+    const songArtist = document.getElementById("songArtist");
+    const albumArt = document.querySelector(".album-art");
+    const audioPlayer = document.getElementById("audioPlayer");
+
+    const playBtn = document.getElementById("playBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let isPlaying = false;
+
+    function loadSong(index) {
+      const song = songs[index];
+      songTitle.textContent = song.title;
+      songArtist.textContent = song.artist;
+      albumArt.src = song.img;
+      audioPlayer.src = song.audio;
+    }
+
+    function playSong() {
+      audioPlayer.play();
+      isPlaying = true;
+      playBtn.innerHTML = "&#10073;&#10073;";
+    }
+
+    function pauseSong() {
+      audioPlayer.pause();
+      isPlaying = false;
+      playBtn.innerHTML = "&#9654;";
+    }
+
+    playBtn.addEventListener("click", () => {
+      isPlaying ? pauseSong() : playSong();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+      loadSong(currentIndex);
+      playSong();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % songs.length;
+      loadSong(currentIndex);
+      playSong();
+    });
+
+    audioPlayer.addEventListener("ended", () => {
+      currentIndex = (currentIndex + 1) % songs.length;
+      loadSong(currentIndex);
+      playSong();
+    });
+
+    loadSong(currentIndex);
+
+    document.body.addEventListener("click", () => {
+      if (!isPlaying) playSong();
+    }, { once: true });
+  </script>
+
+</body>
+</html>
